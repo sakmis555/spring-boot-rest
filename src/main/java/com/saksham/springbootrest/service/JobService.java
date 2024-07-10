@@ -71,4 +71,8 @@ public class JobService {
         ));
         repository.saveAll(jobs);
     }
+
+    public List<JobPost> searchByKeyword(String keyword) {
+        return repository.findByPostProfileContainingIgnoreCaseOrPostDescContainingIgnoreCase(keyword, keyword);
+    }
 }

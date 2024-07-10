@@ -13,6 +13,11 @@ public class JobRestController {
     @Autowired
     JobService service;
 
+    @GetMapping("jobPosts/keyword/{keyword}")
+    public List<JobPost> searchByKeyword(@PathVariable String keyword) {
+        return service.searchByKeyword(keyword);
+    }
+
     @GetMapping("jobPosts")
     public List<JobPost> getAllJobs() {
         return service.getAllJobs();

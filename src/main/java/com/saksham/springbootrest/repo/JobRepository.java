@@ -9,6 +9,7 @@ import java.util.List;
 
 @Repository
 public interface JobRepository extends JpaRepository<JobPost,Integer> {
+    List<JobPost> findByPostProfileContainingIgnoreCaseOrPostDescContainingIgnoreCase(String postProfileKeyword, String postDescKeyword);
 
 //    List<JobPost> jobs = new ArrayList<>();
 //
