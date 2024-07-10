@@ -5,6 +5,7 @@ import com.saksham.springbootrest.repo.JobRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -13,24 +14,61 @@ public class JobService {
     @Autowired
     private JobRepository repository;
     public void addJob(JobPost jobPost) {
-        repository.addJob(jobPost);
+        repository.save(jobPost);
     };
 
     public List<JobPost> getAllJobs() {
-        List<JobPost> jobs = repository.getAllJobs();
+        List<JobPost> jobs = repository.findAll();
         return jobs;
 //        return null;
     };
 
     public JobPost getJobById(int postId) {
-        return repository.getJobById(postId);
+        return repository.findById(postId).orElse(new JobPost());
     }
 
     public void updateJob(JobPost jobPost) {
-        repository.updateJob(jobPost);
+        repository.save(jobPost);
     }
 
     public void deleteJob(int postId) {
-        repository.deleteJob(postId);
+        repository.deleteById(postId);
+    }
+
+    public void load() {
+        List<JobPost> jobs = new ArrayList<>(List.of(
+        new JobPost(1, "Java Developer", "Must have good experience in core Java and advanced Java", 2,
+                List.of("Core Java", "J2EE", "Spring Boot", "Hibernate")),
+
+        new JobPost(2, "Frontend Developer", "Experience in building responsive web applications using React",
+                        3, List.of("HTML", "CSS", "JavaScript", "React")),
+
+        new JobPost(3, "Data Scientist", "Strong background in machine learning and data analysis", 4,
+                List.of("Python", "Machine Learning", "Data Analysis")),
+
+        new JobPost(4, "Network Engineer",
+                "Design and implement computer networks for efficient data communication", 5,
+                List.of("Networking", "Cisco", "Routing", "Switching")),
+
+        new JobPost(5, "Mobile App Developer", "Experience in mobile app development for iOS and Android",
+                        3, List.of("iOS Development", "Android Development", "Mobile App")),
+
+        new JobPost(6, "DevOps Engineer", "Implement and manage continuous integration and delivery pipelines",
+                        4, List.of("DevOps", "CI/CD", "Docker", "Kubernetes")),
+
+        new JobPost(7, "UI/UX Designer", "Create engaging user experiences and intuitive user interfaces",
+                        2, List.of("User Experience", "User Interface Design", "Prototyping")),
+
+        new JobPost(8, "Cybersecurity Analyst", "Protect computer systems and networks from cyber threats",
+                        4, List.of("Cybersecurity", "Network Security", "Incident Response")),
+
+        new JobPost(9, "Full Stack Developer", "Experience in both front-end and back-end development",
+                5, List.of("JavaScript", "Node.js", "React", "Spring", "MongoDB")),
+
+        new JobPost(10, "Cloud Architect", "Design and implement cloud infrastructure solutions", 6,
+                List.of("Cloud Computing", "AWS", "Azure", "Google Cloud"))
+
+        ));
+        repository.saveAll(jobs);
     }
 }
