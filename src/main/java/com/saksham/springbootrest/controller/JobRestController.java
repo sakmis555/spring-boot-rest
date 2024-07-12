@@ -1,4 +1,4 @@
-package com.saksham.springbootrest;
+package com.saksham.springbootrest.controller;
 
 import com.saksham.springbootrest.model.JobPost;
 import com.saksham.springbootrest.service.JobService;
